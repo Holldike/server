@@ -32,7 +32,7 @@ class Core
 		
         Logger::writeSocketData($address, $port);
 
-//        if ($this->conn) socket_close($this->conn);
+        if ($this->conn) socket_close($this->conn);
     }
 
     public function acceptConnect()
