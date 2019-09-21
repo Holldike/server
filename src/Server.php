@@ -22,6 +22,11 @@ class Server
 
         while (true) {
             $connection = socket_accept($socket);
+
+            $httpResponseBuilder = new HttpResponseBuilder();
+            $httpResponseBuilder->setBody();
+            $httpResponseBuilder->setCode();
+
             $response = $this->getResponse();
             socket_write($connection, $response, strlen($response));
             socket_close($connection);
