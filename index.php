@@ -6,9 +6,9 @@ const APPLICATION_DIR = __DIR__;
 set_time_limit(0);
 
 const ADDRESS = '0.0.0.0';
-const PORT = 80;
+const PORT = 8080;
 
-$core = new Core();
-if ($core->initConnect()) {
-    $core->acceptConnect();
-}
+$logger = new Logger(APPLICATION_DIR . '/storage/logs.txt');
+
+$server = new Server($logger);
+$server->listen(ADDRESS, PORT);

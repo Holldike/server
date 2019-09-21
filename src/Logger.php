@@ -1,21 +1,29 @@
 <?php
 
 
-class Logger
+class Logger implements LoggerInterface
 {
-    const FILE = APPLICATION_DIR . '/storage/logs.txt';
+	/**
+	* @var string
+	*/
+	private $path;
+	
+	public function __construct(string $path)
+	{
+		$this->path = $path;
+	}
 
-    public static function writeSocketData($address, $port)
+    public function write(string $message): void
     {
-        $file = fopen(self::FILE, 'a+');
-        fwrite($file, self::buildItem($address, $port));
+        $file = fopen($this->path, 'w+');
+        fwrite($file, $this->buildMessage($message));
         fclose($file);
     }
 
-    private static function buildItem($address, $port)
+    private function buildMessage(string $message): string
     {
         $time = date('d.n H:i:s');
-        return
-            "$time | ip: $address | port: $port\n";
+
+        return "$time | $message";
     }
 }
