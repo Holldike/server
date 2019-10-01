@@ -12,4 +12,4 @@
 //$server = new Server();
 //$server->listen(ADDRESS, PORT);
 
-pcntl_exec ();
+pcntl_exec ('test.php', ['test']);

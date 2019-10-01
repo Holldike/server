@@ -3,6 +3,7 @@
     "psr-4": {"": "src/"}
   },
   "require": {
-    "ext-sockets": "*"
+    "ext-sockets": "*",
+    "ext-pcntl": "*"
   }
 }
