@@ -2,12 +2,7 @@
 
 class Server
 {
-    private $logger;
-
-    public function __construct(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
+    private $sockets;
 
     public function listen(string $address, int $port): void
     {
@@ -15,27 +10,43 @@ class Server
 
         if (!$socket ||
             !(socket_bind($socket, $address, $port)) ||
-            !(socket_listen($socket))
+            !(socket_listen($socket, 5))
         ) {
             throw new Exception('Listen: error init connect');
         }
 
         while (true) {
-            $connection = socket_accept($socket);
+//            if ($connection = socket_accept($socket)) $this->sockets[] = $connection;
+//
+//            var_dump($this->sockets);
+            $start_time = time();
 
-            $httpResponseBuilder = new HttpResponseBuilder();
-            $httpResponseBuilder->setBody();
-            $httpResponseBuilder->setCode();
+            while(true) {
+                $test = (time() - $start_time);
+                echo $test;
+                if ($test > 2) {
+                    break;
+                }
+            }
 
-            $response = $this->getResponse();
-            socket_write($connection, $response, strlen($response));
-            socket_close($connection);
+//            if (!empty($this->sockets)) {
+//
+//                $write  = NULL;
+//                $except = NULL;
+//                $num_changed_sockets = socket_select($write, $this->sockets, $except, 4);
+//
+//                echo $num_changed_sockets;
+//            }
+
+
+
+//            while (true) {
+//                $buf = socket_read($connection, 1024);
+//                socket_write($connection, $buf, strlen($buf));
+//                break;
+//            }
         }
-    }
 
-    private function getResponse(): string
-    {
-        return "HTTP/1.1 200 OK\n\n<h1 style='text-align: center'>HOLLDIKE SERVER</h1>";
     }
 
 }
