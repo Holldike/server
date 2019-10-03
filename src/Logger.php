@@ -1,29 +1,30 @@
 <?php
 
-
-class Logger implements LoggerInterface
+class Logger 
 {
 	/**
 	* @var string
 	*/
 	private $path;
-	
+	private $message;
 	public function __construct(string $path)
 	{
 		$this->path = $path;
 	}
 
-    public function write(string $message): void
+    public function write()
     {
-        $file = fopen($this->path, 'w+');
-        fwrite($file, $this->buildMessage($message));
-        fclose($file);
+		file_put_contents($this->path, $this->message, FILE_APPEND);
     }
 
-    private function buildMessage(string $message): string
+    public function buildMessage(string $message)
     {
         $time = date('d.n H:i:s');
+        $this->message = "$time | $message" . "\n";
+    }
 
-        return "$time | $message";
+    public function buildError(string $message)
+    {
+        $this->message = "ERROR | $message" . "\n";
     }
 }

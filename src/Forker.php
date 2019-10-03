@@ -1,6 +1,6 @@
 <?php
 
-class HttpResponseBuilder
+class Forker
 {
     private $code;
 
@@ -16,11 +16,8 @@ class HttpResponseBuilder
         $this->code = $code;
     }
 
-    public function build()
+    public static function doFork()
     {
-
+		pcntl_fork();
     }
 }
-return
-    "HTTP/1.1 200 OK\n
-    <h1 style='text-align: center'>HOLLDIKE SERVER</h1>";
