@@ -1,9 +1,5 @@
 {
-  "autoload": {
-    "psr-4": {"": "src/"}
-  },
-  "require": {
-    "ext-sockets": "*",
-    "ext-pcntl": "*"
-  }
+    "autoload": {
+        "psr-4": {"": "src/"}
+    }
 }
